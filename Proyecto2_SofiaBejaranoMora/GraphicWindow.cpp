@@ -6,14 +6,14 @@ GraphicWindow::GraphicWindow()
 
 void GraphicWindow::windowMap()
 {
-	Color Red(255, 0, 0);
+	Color colorRed(255, 0, 0);
 	Color Blue(0, 0, 225);
 	string colorBlue = "Blue";
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
 
 	Vertex linea[] = {
-		Vertex(Vector2f(100,100),Color::Red),
-		Vertex(Vector2f(300,300),Color::Red)
+		Vertex(Vector2f(100,100),colorRed),
+		Vertex(Vector2f(300,300),colorRed)
 	};
 
 	Texture imageWindowMap;
