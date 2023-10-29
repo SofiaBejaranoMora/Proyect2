@@ -16,9 +16,11 @@ public:
 		previous = nullptr;
 	}
 	DoubleNode* getNext() {
-
+		return next;
 	}
-	DoubleNode* getPrevious();
+	DoubleNode* getPrevious() {
+		return previous;
+	}
 
 
 };

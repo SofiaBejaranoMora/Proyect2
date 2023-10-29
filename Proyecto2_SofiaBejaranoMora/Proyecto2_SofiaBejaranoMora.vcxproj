@@ -137,12 +137,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeneralList.cpp" />
     <ClCompile Include="GraphicWindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Route.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleNode.h" />
+    <ClInclude Include="GeneralList.h" />
     <ClInclude Include="GraphicWindow.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Route.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
