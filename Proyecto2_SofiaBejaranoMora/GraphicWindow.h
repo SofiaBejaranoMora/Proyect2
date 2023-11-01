@@ -10,5 +10,6 @@ class GraphicWindow
 public:
 	GraphicWindow();
 	void windowMap();
+	void enterData();
 };
 

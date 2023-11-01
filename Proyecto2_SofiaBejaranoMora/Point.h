@@ -1,4 +1,8 @@
 #pragma once
+#include<iostream>
+
+using namespace std;
+
 class Point
 {
 private:
@@ -8,5 +12,6 @@ public:
 	Point(int positionX, int positionY);
 	int getPositionX();
 	int getPositionY();
+	void toString();
 };
 

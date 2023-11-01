@@ -137,7 +137,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GeneralList.cpp" />
     <ClCompile Include="GraphicWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Point.cpp" />
