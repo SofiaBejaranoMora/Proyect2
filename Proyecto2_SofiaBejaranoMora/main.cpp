@@ -4,7 +4,7 @@
 #include "Point.h"
 #include "Route.h"
 #include <SFML/Graphics.hpp>
-
+#include <Windows.h>
 
 int main()
 {
@@ -33,6 +33,11 @@ int main()
 		cin >> opcion;
 	}
 	route.imprimir();*/
-	GraphicWindow window;
+	
+	HWND hwnd = GetConsoleWindow();
+	GraphicWindow window (hwnd);
 	window.windowMap();
+
+	
+	
 }

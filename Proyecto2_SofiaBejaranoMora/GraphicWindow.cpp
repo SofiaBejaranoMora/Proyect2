@@ -1,7 +1,10 @@
 #include "GraphicWindow.h"
 
-GraphicWindow::GraphicWindow()
+GraphicWindow::GraphicWindow(HWND hwnd)
 {
+	this->hwnd = hwnd;
+	enabledAddPoint = false;
+	nameRoute = " ";
 }
 
 void GraphicWindow::windowMap()
@@ -17,19 +20,27 @@ void GraphicWindow::windowMap()
 	};*/
 
 	Texture imageWindowMap;
-	Texture imagenButtonExit;
-	Texture imagenButtonAddRoute;
+	Texture imageButtonExit;
+	Texture imageRoute;
+	Texture imageButtonAdd;
+	Texture imageButtonReady;
 
 	imageWindowMap.loadFromFile("Images/Map.png");
-	imagenButtonExit.loadFromFile("Images/ButtonExit.png");
-	imagenButtonAddRoute.loadFromFile("Images/AddRouteButton.png");
+	imageButtonExit.loadFromFile("Images/ButtonExit.png");
+	imageRoute.loadFromFile("Images/Route.png");
+	imageButtonAdd.loadFromFile("Images/addButton.png");
+	imageButtonReady.loadFromFile("Images/readyButton.png");
 
 	Sprite sprImageWindowMap(imageWindowMap);
-	Sprite sprImagenButtonExit(imagenButtonExit);
-	Sprite sprImagenButtonAddRoute(imagenButtonAddRoute);
+	Sprite sprImageButtonExit(imageButtonExit);
+	Sprite sprImageRoute(imageRoute);
+	Sprite sprImageButtonAdd(imageButtonAdd);
+	Sprite sprImageButtonReady(imageButtonReady);
 
-	sprImagenButtonExit.setPosition(30, 40);
-	sprImagenButtonAddRoute.setPosition(30, 90);
+	sprImageButtonExit.setPosition(30, 40);
+	sprImageRoute.setPosition(30, 120);
+	sprImageButtonAdd.setPosition(30, 163);//Todas las imagenes que tengan que ver con ruta llevan 10 mp de distancia 
+	sprImageButtonReady.setPosition(1250, 90);
 
 	sprImageWindowMap.setScale(static_cast<float>(windowMap.getSize().x) / sprImageWindowMap.getLocalBounds().width,
 		static_cast<float>(windowMap.getSize().y) / sprImageWindowMap.getLocalBounds().height);
@@ -39,22 +50,44 @@ void GraphicWindow::windowMap()
 		while (windowMap.pollEvent(eventWindowMap)) {
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if (sprImagenButtonExit.getGlobalBounds().contains(mousePosition)) {
+				if (sprImageButtonExit.getGlobalBounds().contains(mousePosition)) {
 					windowMap.close();
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if (sprImagenButtonAddRoute.getGlobalBounds().contains(mousePosition)) {
-					windowMap.close();
+				if ((sprImageButtonAdd.getGlobalBounds().contains(mousePosition))&&(!enabledAddPoint)) {
+					useConsole();
+					enabledAddPoint = true;
 				}
+			}
+			if (((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left))&&(enabledAddPoint)){
+				int x = eventWindowMap.mouseButton.x;
+				int y = eventWindowMap.mouseButton.y;
 			}
 		}
 		windowMap.draw(sprImageWindowMap);
-		windowMap.draw(sprImagenButtonExit);
-		windowMap.draw(sprImagenButtonAddRoute);
+		windowMap.draw(sprImageButtonExit);
+		windowMap.draw(sprImageRoute);
+		windowMap.draw(sprImageButtonAdd);
 		/*windowMap.draw(linea, 2, Lines);*/
 		windowMap.display();
 	}
 
+}
+
+void GraphicWindow::enterData()
+{
+
+}
+
+void GraphicWindow::useConsole()
+{
+	system("cls");
+	ShowWindow(hwnd, SW_MINIMIZE);
+	cout << "Ingrese el nombre de la ruta que va a crear: \n";
+	ShowWindow(hwnd, SW_RESTORE);
+	cin >> nameRoute;
+	ShowWindow(hwnd, SW_MINIMIZE);
+	system("pause");
 }
