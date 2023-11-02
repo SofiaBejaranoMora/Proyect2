@@ -13,14 +13,16 @@ class Route
 private:
 	string name;
 	GeneralList<Point>* pointList;
-	//Color color;
+	Color color;
 public:
 	Route();
 	Route(string name);
-	Route(string name,GeneralList<Point>* pointsList/*, Color color*/);
+	Route(string name,GeneralList<Point>* pointsList);
 	GeneralList<Point>* getPointsList();
+	Color getColor();
 	void addPoint(int x, int y);
 	void setPointsList(GeneralList<Point>* pointsList);
+	void setColor(Color color);
 	void toString();
 };
 

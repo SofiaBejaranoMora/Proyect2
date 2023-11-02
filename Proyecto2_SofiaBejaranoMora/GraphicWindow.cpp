@@ -9,9 +9,7 @@ GraphicWindow::GraphicWindow()
 
 void GraphicWindow::windowMap()
 {
-	Color colorRed(255, 0, 0);
-	Color Blue(0, 0, 225);
-	string colorBlue = "Blue";
+	
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
 
 	Texture imageWindowMap;
@@ -55,10 +53,12 @@ void GraphicWindow::windowMap()
 					useConsole();
 					listManager->setCurrentRoute(new Route(nameRoute));
 					listManager->addRoute();
+					listManager->getCurrentRoute()->setColor(colorRoute());
 					enabledAddPoint = true;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)&& (enabledAddPoint)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				int x = eventWindowMap.mouseButton.x;
 				int y = eventWindowMap.mouseButton.y;
 				if ( (130 < x) && (x < 1200)) {
@@ -104,7 +104,6 @@ void GraphicWindow::useConsole()
 
 void GraphicWindow::drawRoute(RenderWindow& window)
 {
-	
 	if (listManager->getListRoute()->getHead()) {
 		GeneralList<Route>* listRoute = listManager->getListRoute();
 		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
@@ -112,28 +111,58 @@ void GraphicWindow::drawRoute(RenderWindow& window)
 			Route* Route = currentNodeRoute->getData();
 			DoubleNode<Point>* currentNodePoint = Route->getPointsList()->getHead();
 
-			drawPoint(window, currentNodePoint);
+			drawPoint(window, currentNodePoint,currentNodeRoute->getData()->getColor());
 
 			currentNodeRoute = currentNodeRoute->getNext();
 		}
 	}
 }
 
-void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint)
+void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint,Color color)
 {
-	Color colorRed(255, 0, 0);
 	if (currentNodePoint) {
 		while (currentNodePoint->getNext()) {
 			Vertex line[] = {
 				Vertex(Vector2f(currentNodePoint->getData()->getPositionX(),
-					currentNodePoint->getData()->getPositionY()),colorRed),
+					currentNodePoint->getData()->getPositionY()),color),
 				Vertex(Vector2f(currentNodePoint->getNext()->getData()->getPositionX(),
-					currentNodePoint->getNext()->getData()->getPositionY()),colorRed)
+					currentNodePoint->getNext()->getData()->getPositionY()),color)
 			};
 			window.draw(line, 2, Lines);
 			currentNodePoint = currentNodePoint->getNext();
 		}
 	}
+}
+
+Color GraphicWindow::colorRoute()
+{
+	Color color;
+
+	RenderWindow windowColorPalette(VideoMode(700, 263), "ColorPalette", Style::None);
+
+	Texture imageColorPalette;
+
+	imageColorPalette.loadFromFile("Images/colorPalette.png");
+
+	Sprite sprImageColorPalette(imageColorPalette);
+
+	sprImageColorPalette.setScale(static_cast<float>(windowColorPalette.getSize().x) / sprImageColorPalette.getLocalBounds().width,
+		static_cast<float>(windowColorPalette.getSize().y) / sprImageColorPalette.getLocalBounds().height);
+
+	while (windowColorPalette.isOpen()) {
+		Event eventWindowColorPalette;
+		while (windowColorPalette.pollEvent(eventWindowColorPalette)) {
+			if ((eventWindowColorPalette.type == Event::MouseButtonPressed) && (eventWindowColorPalette.mouseButton.button == Mouse::Left)) {
+				Vector2i posicionMouse = Mouse::getPosition(windowColorPalette);
+				color = imageColorPalette.copyToImage().getPixel(posicionMouse.x, posicionMouse.y);
+				windowColorPalette.close();
+			}
+		}
+		windowColorPalette.clear();
+		windowColorPalette.draw(sprImageColorPalette);
+		windowColorPalette.display();
+	}
+	return color;
 }
 
 
