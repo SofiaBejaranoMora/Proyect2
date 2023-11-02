@@ -22,6 +22,7 @@ public:
 	void enterData(int x, int y);
 	void useConsole();
 	void drawRoute(RenderWindow& window);
+	void drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint);
 
 };
 

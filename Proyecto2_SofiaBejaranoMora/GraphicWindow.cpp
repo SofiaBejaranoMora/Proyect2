@@ -14,11 +14,6 @@ void GraphicWindow::windowMap()
 	string colorBlue = "Blue";
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
 
-	/*Vertex linea[] = {
-		Vertex(Vector2f(100,100),colorRed),
-		Vertex(Vector2f(300,300),colorRed)
-	};*/
-
 	Texture imageWindowMap;
 	Texture imageButtonExit;
 	Texture imageRoute;
@@ -64,9 +59,9 @@ void GraphicWindow::windowMap()
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)&& (enabledAddPoint)) {
-				if (enabledAddPoint) {
-					int x = eventWindowMap.mouseButton.x;
-					int y = eventWindowMap.mouseButton.y;
+				int x = eventWindowMap.mouseButton.x;
+				int y = eventWindowMap.mouseButton.y;
+				if ( (130 < x) && (x < 1200)) {
 					enterData(x, y);
 				}
 			}
@@ -109,28 +104,37 @@ void GraphicWindow::useConsole()
 
 void GraphicWindow::drawRoute(RenderWindow& window)
 {
-	Color colorRed(255, 0, 0);
+	
 	if (listManager->getListRoute()->getHead()) {
 		GeneralList<Route>* listRoute = listManager->getListRoute();
 		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
 		while (currentNodeRoute) {
 			Route* Route = currentNodeRoute->getData();
 			DoubleNode<Point>* currentNodePoint = Route->getPointsList()->getHead();
-			while (currentNodePoint->getNext()) {
-				Vertex linea[] = {
-					Vertex(Vector2f(currentNodePoint->getData()->getPositionX(),
-						currentNodePoint->getData()->getPositionY()),colorRed),
-					Vertex(Vector2f(currentNodePoint->getNext()->getData()->getPositionX(),
-						currentNodePoint->getNext()->getData()->getPositionY()),colorRed)
-				};
-				window.draw(linea, 2, Lines);
-				currentNodePoint = currentNodePoint->getNext();
-			}
+
+			drawPoint(window, currentNodePoint);
+
 			currentNodeRoute = currentNodeRoute->getNext();
 		}
 	}
 }
 
+void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint)
+{
+	Color colorRed(255, 0, 0);
+	if (currentNodePoint) {
+		while (currentNodePoint->getNext()) {
+			Vertex line[] = {
+				Vertex(Vector2f(currentNodePoint->getData()->getPositionX(),
+					currentNodePoint->getData()->getPositionY()),colorRed),
+				Vertex(Vector2f(currentNodePoint->getNext()->getData()->getPositionX(),
+					currentNodePoint->getNext()->getData()->getPositionY()),colorRed)
+			};
+			window.draw(line, 2, Lines);
+			currentNodePoint = currentNodePoint->getNext();
+		}
+	}
+}
 
 
 
