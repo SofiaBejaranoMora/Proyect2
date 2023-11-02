@@ -3,6 +3,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
+#include "ListManager.h"
+#include "GeneralList.h"
+#include"DoubleNode.h"
 
 using namespace sf;
 using namespace std;
@@ -11,12 +14,14 @@ class GraphicWindow
 {
 private:
 	bool enabledAddPoint;
-	HWND hwnd;
 	string nameRoute;
+	ListManager* listManager;
 public:
-	GraphicWindow(HWND hwnd);
+	GraphicWindow();
 	void windowMap();
-	void enterData();
+	void enterData(int x, int y);
 	void useConsole();
+	void drawRoute(RenderWindow& window);
+
 };
 

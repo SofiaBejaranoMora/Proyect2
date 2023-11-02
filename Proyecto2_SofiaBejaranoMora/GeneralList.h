@@ -44,7 +44,7 @@ public:
 	void imprimir() {
 		DoubleNode<T>* currentNode = head;
 		while (currentNode) {
-			currentNode->getData();
+			currentNode->getData()->toString();
 			currentNode = currentNode->getNext();
 		}
 		cout << endl;

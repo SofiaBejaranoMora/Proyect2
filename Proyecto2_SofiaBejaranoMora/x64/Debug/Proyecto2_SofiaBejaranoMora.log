@@ -1,4 +1,22 @@
 ﻿  GraphicWindow.cpp
-  main.cpp
-  Generando código...
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(122,48): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(121,63): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(124,59): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(123,74): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
   Proyecto2_SofiaBejaranoMora.vcxproj -> C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\x64\Debug\Proyecto2_SofiaBejaranoMora.exe

@@ -1,10 +1,10 @@
 #include "GraphicWindow.h"
 
-GraphicWindow::GraphicWindow(HWND hwnd)
+GraphicWindow::GraphicWindow()
 {
-	this->hwnd = hwnd;
-	enabledAddPoint = false;
+	listManager = new ListManager;
 	nameRoute = " ";
+	enabledAddPoint = false;
 }
 
 void GraphicWindow::windowMap()
@@ -56,38 +56,81 @@ void GraphicWindow::windowMap()
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if ((sprImageButtonAdd.getGlobalBounds().contains(mousePosition))&&(!enabledAddPoint)) {
+				if ((sprImageButtonAdd.getGlobalBounds().contains(mousePosition)) && (!enabledAddPoint)) {
 					useConsole();
+					listManager->setCurrentRoute(new Route(nameRoute));
+					listManager->addRoute();
 					enabledAddPoint = true;
 				}
 			}
-			if (((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left))&&(enabledAddPoint)){
-				int x = eventWindowMap.mouseButton.x;
-				int y = eventWindowMap.mouseButton.y;
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)&& (enabledAddPoint)) {
+				if (enabledAddPoint) {
+					int x = eventWindowMap.mouseButton.x;
+					int y = eventWindowMap.mouseButton.y;
+					enterData(x, y);
+				}
 			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if ((sprImageButtonReady.getGlobalBounds().contains(mousePosition))) {
+					enabledAddPoint = false;
+
+				}
+			}
+
 		}
 		windowMap.draw(sprImageWindowMap);
 		windowMap.draw(sprImageButtonExit);
 		windowMap.draw(sprImageRoute);
 		windowMap.draw(sprImageButtonAdd);
-		/*windowMap.draw(linea, 2, Lines);*/
+		drawRoute(windowMap);
+		if (enabledAddPoint) {
+			windowMap.draw(sprImageButtonReady);
+		}
 		windowMap.display();
 	}
-
 }
 
-void GraphicWindow::enterData()
+void GraphicWindow::enterData(int x,int y)
 {
-
+	listManager->insertPoint(x, y);
 }
 
 void GraphicWindow::useConsole()
 {
-	system("cls");
+	HWND hwnd = GetConsoleWindow();
 	ShowWindow(hwnd, SW_MINIMIZE);
-	cout << "Ingrese el nombre de la ruta que va a crear: \n";
+	cout << "Ingrese el nombre de la ruta que va a crear: ";
 	ShowWindow(hwnd, SW_RESTORE);
 	cin >> nameRoute;
 	ShowWindow(hwnd, SW_MINIMIZE);
-	system("pause");
+
 }
+
+void GraphicWindow::drawRoute(RenderWindow& window)
+{
+	Color colorRed(255, 0, 0);
+	if (listManager->getListRoute()->getHead()) {
+		GeneralList<Route>* listRoute = listManager->getListRoute();
+		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
+		while (currentNodeRoute) {
+			Route* Route = currentNodeRoute->getData();
+			DoubleNode<Point>* currentNodePoint = Route->getPointsList()->getHead();
+			while (currentNodePoint->getNext()) {
+				Vertex linea[] = {
+					Vertex(Vector2f(currentNodePoint->getData()->getPositionX(),
+						currentNodePoint->getData()->getPositionY()),colorRed),
+					Vertex(Vector2f(currentNodePoint->getNext()->getData()->getPositionX(),
+						currentNodePoint->getNext()->getData()->getPositionY()),colorRed)
+				};
+				window.draw(linea, 2, Lines);
+				currentNodePoint = currentNodePoint->getNext();
+			}
+			currentNodeRoute = currentNodeRoute->getNext();
+		}
+	}
+}
+
+
+
+

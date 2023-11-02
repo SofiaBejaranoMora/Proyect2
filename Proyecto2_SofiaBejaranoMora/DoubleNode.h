@@ -21,8 +21,8 @@ public:
 	DoubleNode* getPrevious() {
 		return previous;
 	}
-	void getData() {
-		data->toString();
+	T* getData() {
+		return data;
 	}
 	void setData(T* data) {
 		this->data = data;

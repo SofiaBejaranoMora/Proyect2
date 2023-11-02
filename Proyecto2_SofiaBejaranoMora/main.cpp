@@ -5,10 +5,13 @@
 #include "Route.h"
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
+#include "ListManager.h"
+#include"DoubleNode.h"
 
 int main()
 {
-	/*GeneralList<Route> route;
+	/*ListManager* route = new ListManager;
+	
 	int opcion = 0, opcion2 = 0;
 	int x = 0, y = 0;
 	string nombre;
@@ -16,7 +19,7 @@ int main()
 		cout << "Nombre de ruta" << endl;
 		cin >> nombre;
 		Route* ruta1 = new Route(nombre);
-		GeneralList<Point>* pointList = new GeneralList<Point>;
+		route->setCurrentRoute(ruta1);
 		while (opcion2 != 7) {
 			cout << "ingrese x " << endl;
 			cin >> x;
@@ -24,20 +27,34 @@ int main()
 			cin >> y;
 			cout << "salie 7" << endl;
 			cin >> opcion2;
-			pointList->insertEnd(new Point(x, y));
+			route->insertPoint(x, y);
 		}
 		opcion2 = 0;
-		ruta1->setPointsList(pointList);
-		route.insertEnd(ruta1);
+		route->addRoute();
 		cout << "salie 9" << endl;
 		cin >> opcion;
 	}
-	route.imprimir();*/
+	DoubleNode<Route>* cR = route->getListRoute()->getHead();
+	while (cR) {
+		cR->getData()->toString();
+		DoubleNode<Point>* cP = cR->getData()->getPointsList()->getHead();
+		while (cP) {
+			cout << cP->getData()->getPositionX() << endl;
+			cout << cP->getData()->getPositionY() << endl;
+			cP = cP->getNext();
+		}
+		cR = cR->getNext();
+	}*/
 	
-	HWND hwnd = GetConsoleWindow();
-	GraphicWindow window (hwnd);
+	
+	GraphicWindow window;
 	window.windowMap();
 
-	
-	
+	//ListManager* l = new ListManager;
+	//l->setCurrentRoute(new Route("holi"));
+	//l->getCurrentRoute()->toString();
+
+	//GeneralList<Route>* p;
+
+
 }
