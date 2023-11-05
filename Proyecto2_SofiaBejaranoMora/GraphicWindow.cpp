@@ -20,6 +20,7 @@ void GraphicWindow::windowMap()
 	Texture imageButtonAdd;
 	Texture imageButtonReady;
 	Texture imageButtonSave;
+	Texture imageButtonLoad;
 
 	imageWindowMap.loadFromFile("Images/Map.png");
 	imageButtonExit.loadFromFile("Images/ButtonExit.png");
@@ -27,6 +28,7 @@ void GraphicWindow::windowMap()
 	imageButtonAdd.loadFromFile("Images/addButton.png");
 	imageButtonReady.loadFromFile("Images/readyButton.png");
 	imageButtonSave.loadFromFile("Images/saveButton.png");
+	imageButtonLoad.loadFromFile("Images/loadButton.png");
 	
 
 	Sprite sprImageWindowMap(imageWindowMap);
@@ -35,12 +37,14 @@ void GraphicWindow::windowMap()
 	Sprite sprImageButtonAdd(imageButtonAdd);
 	Sprite sprImageButtonReady(imageButtonReady);
 	Sprite sprImageButtonSave(imageButtonSave);
+	Sprite sprImageButtonLoad(imageButtonLoad);
 
 	sprImageButtonExit.setPosition(30, 40);
 	sprImageButtonReady.setPosition(1250, 90);
 	sprImageRoute.setPosition(30, 120);
 	sprImageButtonAdd.setPosition(30, 163);//Todas las imagenes que tengan que ver con ruta llevan 10 mp de distancia 
 	sprImageButtonSave.setPosition(30, 211);
+	sprImageButtonLoad.setPosition(30, 257);
 	
 
 	sprImageWindowMap.setScale(static_cast<float>(windowMap.getSize().x) / sprImageWindowMap.getLocalBounds().width,
@@ -88,13 +92,22 @@ void GraphicWindow::windowMap()
 					listManager->saveListRoute();
 				}
 			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if ((sprImageButtonLoad.getGlobalBounds().contains(mousePosition))) {
+					listManager->loadListRoute();
+				}
+			}
 
 		}
+
+		windowMap.clear();
 		windowMap.draw(sprImageWindowMap);
 		windowMap.draw(sprImageButtonExit);
 		windowMap.draw(sprImageRoute);
 		windowMap.draw(sprImageButtonAdd);
 		windowMap.draw(sprImageButtonSave);
+		windowMap.draw(sprImageButtonLoad);
 		drawRoute(windowMap);
 		if (enabledAddPoint) {
 			windowMap.draw(sprImageButtonReady);

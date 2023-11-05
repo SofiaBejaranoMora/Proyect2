@@ -2,7 +2,7 @@
 
 FileManager::FileManager()
 {
-	name = "routeFile.txt";
+	name = "routeFile.mmp";
 }
 
 void FileManager::saveList(GeneralList<Route>* listRoute)
@@ -27,7 +27,7 @@ string FileManager::serializeRoute(Route* route)
 	string data = " ";
 	data = "Name: " + route->getName();
 	data +="\nColor: "+ serializeColor(route->getColor());
-	data += "\n" + serializeListPoint(route->getPointsList());
+	data += "\nPoint: " + serializeListPoint(route->getPointsList())+ "end;";
 	return data;
 }
 
@@ -61,19 +61,91 @@ string FileManager::serializeListPoint(GeneralList<Point>* listPoint)
 	return data;
 }
 
-GeneralList<Route>* FileManager::saveList()
+GeneralList<Route>* FileManager::loadList()
 {
+	Route* route = new Route();
 	GeneralList<Route>* listRoute = new GeneralList<Route>;
 	ifstream file;
 	file.open(name);
-	string linea;
-	while (getline(file, linea)) {
-		
-
-		cout << linea << endl;
+	string line;
+	while (getline(file, line)) {
+		if (line == "{") {
+			route = new Route();
+		}
+		else if (line == "}") {
+			listRoute->insertEnd(route);
+		}
+		deserailizeNameRoute(line, route);
+		deserailizeColor(line, route);
+		deserailizeListPoint(line, route);
 	}
 
 	file.close();
 
 	return listRoute;
 }
+
+void FileManager::deserailizeNameRoute(string line,Route* route)
+{
+	if (line.find("Name: ") != string::npos) {
+		int pos = line.find(":");
+		line = line.substr(pos + 1, line.size() - pos - 1);
+		route->setName(line);
+	}
+}
+
+void FileManager::deserailizeColor(string line, Route* route)
+{
+	int r = 0, g = 0, b = 0, a = 0;
+	if (line.find("Color: ") != string::npos) {
+		int pos = line.find(":");
+		line = line.substr(pos + 1, line.size() - pos - 1);
+		pos = line.find(";");
+		r = stoi(line.substr(0,pos));
+		line = line.substr(pos + 1, line.size() - pos - 1);
+		pos = line.find(";");
+		g = stoi(line.substr(0, pos));
+		line = line.substr(pos + 1, line.size() - pos - 1);
+		pos = line.find(";");
+		b = stoi(line.substr(0, pos));
+		line = line.substr(pos + 1, line.size() - pos - 1);
+		pos = line.find(";");
+		a = stoi(line.substr(0, pos));
+		Color color(r, g, b, a);
+		route->setColor(color);
+	}
+}
+
+void FileManager::deserailizeListPoint(string line, Route* route)
+{
+	if (line.find("Point: ")!=string::npos) {
+		bool hasPoint = true;
+		string axuliarLine = "";
+		GeneralList<Point>* listPoint = route->getPointsList();
+		int position = line.find(":");
+		line = line.substr(position + 1, line.size() - position - 1);
+		while (hasPoint) {
+			position = line.find(";");
+			axuliarLine = line.substr(0, position);
+			line = line.substr(position + 1, line.size() - position - 1);
+			if (axuliarLine == "end") {
+				hasPoint=false;
+			}
+			else {
+				insertPoint(axuliarLine, listPoint);
+			}
+		}
+	}
+}
+
+void FileManager::insertPoint(string line, GeneralList<Point>* listPoint)
+{
+	int x = 0, y = 0, pos = 0;
+	pos = line.find(":");
+	x = stoi(line.substr(0, pos));
+	line = line.substr(pos + 1, line.size() - pos - 1);
+	y = stoi(line.substr(0, line.size()));
+	listPoint->insertEnd(new Point(x, y));
+}
+
+

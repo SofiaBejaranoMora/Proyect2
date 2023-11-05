@@ -2,6 +2,9 @@
 
 Route::Route()
 {
+	name = "";
+	pointList = new GeneralList<Point>;
+	color = Color::Transparent;
 }
 
 Route::Route(string name)
@@ -46,6 +49,11 @@ void Route::setPointsList(GeneralList<Point>* pointsList)
 void Route::setColor(Color color)
 {
 	this->color = color;
+}
+
+void Route::setName(string name)
+{
+	this->name = name;
 }
 
 void Route::toString()

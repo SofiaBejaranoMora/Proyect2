@@ -24,6 +24,7 @@ public:
 	void addPoint(int x, int y);
 	void setPointsList(GeneralList<Point>* pointsList);
 	void setColor(Color color);
+	void setName(string name);
 	void toString();
 };
 

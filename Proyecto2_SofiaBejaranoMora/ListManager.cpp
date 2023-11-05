@@ -27,6 +27,11 @@ void ListManager::saveListRoute()
 	fileManager->saveList(listRoute);
 }
 
+void ListManager::loadListRoute()
+{
+	listRoute = fileManager->loadList();
+}
+
 GeneralList<Route>* ListManager::getListRoute()
 {
 	return listRoute;

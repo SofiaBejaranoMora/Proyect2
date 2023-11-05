@@ -15,6 +15,7 @@ public:
 	void addRoute();
 	void insertPoint(int x, int y);
 	void saveListRoute();
+	void loadListRoute();
 	GeneralList<Route>* getListRoute();
 	Route* getCurrentRoute();
 };
