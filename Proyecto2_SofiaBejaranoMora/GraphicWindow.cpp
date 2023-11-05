@@ -5,6 +5,8 @@ GraphicWindow::GraphicWindow()
 	listManager = new ListManager;
 	nameRoute = " ";
 	enabledAddPoint = false;
+	lastX = 0;
+	lastY = 0;
 }
 
 void GraphicWindow::windowMap()
@@ -17,23 +19,29 @@ void GraphicWindow::windowMap()
 	Texture imageRoute;
 	Texture imageButtonAdd;
 	Texture imageButtonReady;
+	Texture imageButtonSave;
 
 	imageWindowMap.loadFromFile("Images/Map.png");
 	imageButtonExit.loadFromFile("Images/ButtonExit.png");
 	imageRoute.loadFromFile("Images/Route.png");
 	imageButtonAdd.loadFromFile("Images/addButton.png");
 	imageButtonReady.loadFromFile("Images/readyButton.png");
+	imageButtonSave.loadFromFile("Images/saveButton.png");
+	
 
 	Sprite sprImageWindowMap(imageWindowMap);
 	Sprite sprImageButtonExit(imageButtonExit);
 	Sprite sprImageRoute(imageRoute);
 	Sprite sprImageButtonAdd(imageButtonAdd);
 	Sprite sprImageButtonReady(imageButtonReady);
+	Sprite sprImageButtonSave(imageButtonSave);
 
 	sprImageButtonExit.setPosition(30, 40);
+	sprImageButtonReady.setPosition(1250, 90);
 	sprImageRoute.setPosition(30, 120);
 	sprImageButtonAdd.setPosition(30, 163);//Todas las imagenes que tengan que ver con ruta llevan 10 mp de distancia 
-	sprImageButtonReady.setPosition(1250, 90);
+	sprImageButtonSave.setPosition(30, 211);
+	
 
 	sprImageWindowMap.setScale(static_cast<float>(windowMap.getSize().x) / sprImageWindowMap.getLocalBounds().width,
 		static_cast<float>(windowMap.getSize().y) / sprImageWindowMap.getLocalBounds().height);
@@ -61,8 +69,10 @@ void GraphicWindow::windowMap()
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				int x = eventWindowMap.mouseButton.x;
 				int y = eventWindowMap.mouseButton.y;
-				if ( (130 < x) && (x < 1200)) {
+				if (((130 < x) && (x < 1200))&&((x != lastX)&&(y!=lastY))) {
 					enterData(x, y);
+					lastX = x;
+					lastY = y;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
@@ -72,12 +82,19 @@ void GraphicWindow::windowMap()
 
 				}
 			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if ((sprImageButtonSave.getGlobalBounds().contains(mousePosition))) {
+					listManager->saveListRoute();
+				}
+			}
 
 		}
 		windowMap.draw(sprImageWindowMap);
 		windowMap.draw(sprImageButtonExit);
 		windowMap.draw(sprImageRoute);
 		windowMap.draw(sprImageButtonAdd);
+		windowMap.draw(sprImageButtonSave);
 		drawRoute(windowMap);
 		if (enabledAddPoint) {
 			windowMap.draw(sprImageButtonReady);

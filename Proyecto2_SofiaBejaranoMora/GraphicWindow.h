@@ -16,6 +16,9 @@ private:
 	bool enabledAddPoint;
 	string nameRoute;
 	ListManager* listManager;
+	int lastX;
+	int lastY;
+
 public:
 	GraphicWindow();
 	void windowMap();

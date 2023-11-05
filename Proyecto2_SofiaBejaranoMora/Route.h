@@ -19,6 +19,7 @@ public:
 	Route(string name);
 	Route(string name,GeneralList<Point>* pointsList);
 	GeneralList<Point>* getPointsList();
+	string getName();
 	Color getColor();
 	void addPoint(int x, int y);
 	void setPointsList(GeneralList<Point>* pointsList);

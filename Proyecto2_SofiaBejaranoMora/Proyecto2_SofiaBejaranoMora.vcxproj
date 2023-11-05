@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GraphicWindow.cpp" />
     <ClCompile Include="ListManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleNode.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="GeneralList.h" />
     <ClInclude Include="GraphicWindow.h" />
     <ClInclude Include="ListManager.h" />

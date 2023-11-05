@@ -10,7 +10,6 @@ class GeneralList
 {
 private:
 	DoubleNode<T>* head;
-
 public:
 	GeneralList() {
 		head = nullptr;

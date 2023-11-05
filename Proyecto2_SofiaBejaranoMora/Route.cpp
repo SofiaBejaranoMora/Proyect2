@@ -23,6 +23,11 @@ GeneralList<Point>* Route::getPointsList()
 	return pointList;
 }
 
+string Route::getName()
+{
+	return name;
+}
+
 Color Route::getColor()
 {
 	return color;
