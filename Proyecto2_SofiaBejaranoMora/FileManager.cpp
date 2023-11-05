@@ -2,13 +2,14 @@
 
 FileManager::FileManager()
 {
-	name = "routeFile.mmp";
 }
 
 void FileManager::saveList(GeneralList<Route>* listRoute)
 {
-	ofstream file;
-	file.open(name);
+	ofstream file (NAME);
+	if (!file.is_open()) {
+		throw 2;
+	}
 	file << endl;
 	if (file.is_open()) {
 		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
@@ -66,7 +67,7 @@ GeneralList<Route>* FileManager::loadList()
 	Route* route = new Route();
 	GeneralList<Route>* listRoute = new GeneralList<Route>;
 	ifstream file;
-	file.open(name);
+	file.open(NAME);
 	string line;
 	while (getline(file, line)) {
 		if (line == "{") {

@@ -1,11 +1,36 @@
 ﻿  FileManager.cpp
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(91,11): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(101,11): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(103,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(106,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(109,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(112,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(125,16): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(128,24): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(144,17): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(92,11): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(102,11): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(104,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(107,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(110,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(113,18): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(126,16): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(129,24): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\FileManager.cpp(145,17): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+  GraphicWindow.cpp
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(169,47): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(168,62): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(171,58): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(170,73): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+  ListManager.cpp
+  main.cpp
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\main.cpp(17,13): warning C4101: 'exceptionId': variable local sin referencia
+  Generando código...
   Proyecto2_SofiaBejaranoMora.vcxproj -> C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\x64\Debug\Proyecto2_SofiaBejaranoMora.exe

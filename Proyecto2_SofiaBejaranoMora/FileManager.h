@@ -13,7 +13,7 @@ using namespace std;
 class FileManager
 {
 private:
-	string name;
+	const string NAME= "routeFile.mmp";
 public:
 	FileManager();
 	void saveList(GeneralList<Route>* listManager);

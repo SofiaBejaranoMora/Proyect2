@@ -18,7 +18,7 @@ private:
 	ListManager* listManager;
 	int lastX;
 	int lastY;
-
+	const int ERROR_OPEN_IMAGE = 1;
 public:
 	GraphicWindow();
 	void windowMap();
@@ -27,6 +27,8 @@ public:
 	void drawRoute(RenderWindow& window);
 	void drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint, Color color);
 	Color colorRoute();
-
+	int getERROR_OPEN_IMAGE() {
+		return ERROR_OPEN_IMAGE;
+	}
 };
 

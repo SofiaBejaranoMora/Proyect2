@@ -11,7 +11,7 @@ GraphicWindow::GraphicWindow()
 
 void GraphicWindow::windowMap()
 {
-	
+
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
 
 	Texture imageWindowMap;
@@ -22,14 +22,27 @@ void GraphicWindow::windowMap()
 	Texture imageButtonSave;
 	Texture imageButtonLoad;
 
-	imageWindowMap.loadFromFile("Images/Map.png");
-	imageButtonExit.loadFromFile("Images/ButtonExit.png");
-	imageRoute.loadFromFile("Images/Route.png");
-	imageButtonAdd.loadFromFile("Images/addButton.png");
-	imageButtonReady.loadFromFile("Images/readyButton.png");
-	imageButtonSave.loadFromFile("Images/saveButton.png");
-	imageButtonLoad.loadFromFile("Images/loadButton.png");
-	
+	if (!imageWindowMap.loadFromFile("Images/Map.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonExit.loadFromFile("Images/ButtonExit.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageRoute.loadFromFile("Images/Route.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonAdd.loadFromFile("Images/addButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonReady.loadFromFile("Images/readyButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonSave.loadFromFile("Images/saveButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonLoad.loadFromFile("Images/loadButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
 
 	Sprite sprImageWindowMap(imageWindowMap);
 	Sprite sprImageButtonExit(imageButtonExit);
@@ -83,7 +96,6 @@ void GraphicWindow::windowMap()
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				if ((sprImageButtonReady.getGlobalBounds().contains(mousePosition))) {
 					enabledAddPoint = false;
-
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
