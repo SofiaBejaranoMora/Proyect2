@@ -13,6 +13,7 @@ using namespace std;
 class GraphicWindow
 {
 private:
+	bool hasListSavedRoute;
 	bool enabledAddPoint;
 	string nameRoute;
 	ListManager* listManager;
