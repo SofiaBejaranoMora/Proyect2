@@ -16,6 +16,10 @@ public:
 	void insertPoint(int x, int y);
 	void saveListRoute();
 	void loadListRoute();
+	void deleteRoute(Route* route);
+	void deletePoint(Point* point);
+	Route* searchRoute(int x, int y);
+	Point* searchPoint(int x, int y);
 	GeneralList<Route>* getListRoute();
 	Route* getCurrentRoute();
 };

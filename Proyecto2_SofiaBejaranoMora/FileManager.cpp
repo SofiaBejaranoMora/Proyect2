@@ -10,7 +10,7 @@ void FileManager::saveList(GeneralList<Route>* listRoute)
 	if (!file.is_open()) {
 		throw 2;
 	}
-	file << endl;
+	file << endl; 
 	if (file.is_open()) {
 		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
 		while (currentNodeRoute) {
@@ -133,13 +133,13 @@ void FileManager::deserailizeListPoint(string line, Route* route)
 				hasPoint=false;
 			}
 			else {
-				insertPoint(axuliarLine, listPoint);
+				deserailizePoint(axuliarLine, listPoint);
 			}
 		}
 	}
 }
 
-void FileManager::insertPoint(string line, GeneralList<Point>* listPoint)
+void FileManager::deserailizePoint(string line, GeneralList<Point>* listPoint)
 {
 	int x = 0, y = 0, pos = 0;
 	pos = line.find(":");

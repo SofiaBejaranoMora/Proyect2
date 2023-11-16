@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
 #include "ListManager.h"
-#include"DoubleNode.h"
+#include "DoubleNode.h"
 
 int main()
 {

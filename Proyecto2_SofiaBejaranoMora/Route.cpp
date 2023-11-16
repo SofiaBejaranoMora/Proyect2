@@ -5,6 +5,7 @@ Route::Route()
 	name = "";
 	pointList = new GeneralList<Point>;
 	color = Color::Transparent;
+	isVisible = true;
 }
 
 Route::Route(string name)
@@ -12,13 +13,7 @@ Route::Route(string name)
 	this->name = name;
 	pointList = new GeneralList<Point>;
 	color = Color::Transparent;
-}
-
-Route::Route(string name, GeneralList<Point>* pointsList/*,Color color*/)
-{
-	this->name = name;
-	this->pointList = pointsList;
-	color =Color::Transparent;
+	isVisible = true;
 }
 
 GeneralList<Point>* Route::getPointsList()
@@ -34,6 +29,47 @@ string Route::getName()
 Color Route::getColor()
 {
 	return color;
+}
+
+Point* Route::searchPoint(int x, int y)
+{
+	DoubleNode<Point>* current = pointList->getHead();
+	while (current) {
+		if (current->getData()->checkTouch(x, y)) {
+			return current->getData();
+		}
+		current = current->getNext();
+	}
+	return nullptr;
+}
+
+bool Route::getIsVisible()
+{
+	return isVisible;
+}
+
+bool Route::checkedPoint(int x, int y)
+{
+	DoubleNode<Point>* current = pointList->getHead();
+	while (current) {
+		if (current->getData()->checkTouch(x, y)) {
+			return true;
+		}
+		current = current->getNext();
+	}
+	return false;
+}
+
+bool Route::deletePoint(Point* point)
+{
+	DoubleNode<Point>* current = pointList->getHead();
+	while (current) {
+		if (pointList->deleteData(point)) {
+			return true;
+		}
+		current = current->getNext();
+	}
+	return false;
 }
 
 void Route::addPoint(int x, int y)
@@ -54,6 +90,11 @@ void Route::setColor(Color color)
 void Route::setName(string name)
 {
 	this->name = name;
+}
+
+void Route::setIsVisible(bool isVisible)
+{
+	this->isVisible = isVisible;
 }
 
 void Route::toString()

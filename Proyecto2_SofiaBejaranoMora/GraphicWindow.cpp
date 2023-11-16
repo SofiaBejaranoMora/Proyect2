@@ -5,7 +5,15 @@ GraphicWindow::GraphicWindow()
 	listManager = new ListManager;
 	nameRoute = " ";
 	enabledAddPoint = false;
-	hasListSavedRoute = false;
+	enabledSelectionRoute = false;
+	enabledSelectionPoint = false;
+	enabledSelectionPoint = false;
+	enabledShow = false;
+	enabledHide=false;
+	enabledAutoSave = false;
+	selectedPoint = new Point;
+	selectedRoute = new Route;
+	//hasListSavedRoute = false;
 	lastX = 0;
 	lastY = 0;
 }
@@ -13,6 +21,8 @@ GraphicWindow::GraphicWindow()
 void GraphicWindow::windowMap()
 {
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
+	
+	string name = "automaticSaveButton";
 
 	Texture imageWindowMap;
 	Texture imageButtonExit;
@@ -21,6 +31,15 @@ void GraphicWindow::windowMap()
 	Texture imageFinishRoutebutton;
 	Texture imageButtonSave;
 	Texture imageButtonLoad;
+	Texture imageButtonSelectionRoute;
+	Texture imageButtonHide;
+	Texture imageButtonDelete;
+	Texture imageButtonSelectionPoint;
+	Texture imageButtonShow;
+	Texture imagePointMenu;
+	Texture imagenSaveMode;
+	Texture imagenButtonAutomaticSaveButton;
+	Texture imageManualSaveButton;
 
 	if (!imageWindowMap.loadFromFile("Images/Map.png")) {
 		throw ERROR_OPEN_IMAGE;
@@ -43,6 +62,33 @@ void GraphicWindow::windowMap()
 	if (!imageButtonLoad.loadFromFile("Images/loadButton.png")) {
 		throw ERROR_OPEN_IMAGE;
 	}
+	if (!imageButtonSelectionRoute.loadFromFile("Images/selectionRouteButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonHide.loadFromFile("Images/hideButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonDelete.loadFromFile("Images/deleteButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonSelectionPoint.loadFromFile("Images/selectionPointButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageButtonShow.loadFromFile("Images/showButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imagePointMenu.loadFromFile("Images/PointMenu.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imagenSaveMode.loadFromFile("Images/saveMode.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imagenButtonAutomaticSaveButton.loadFromFile("Images/automaticSaveButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
+	if (!imageManualSaveButton.loadFromFile("Images/manualSaveButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
 
 	Sprite sprImageWindowMap(imageWindowMap);
 	Sprite sprImageButtonExit(imageButtonExit);
@@ -51,21 +97,44 @@ void GraphicWindow::windowMap()
 	Sprite sprImageFinishRoutebutton(imageFinishRoutebutton);
 	Sprite sprImageButtonSave(imageButtonSave);
 	Sprite sprImageButtonLoad(imageButtonLoad);
+	Sprite sprImageButtonSelectionRoute(imageButtonSelectionRoute);
+	Sprite sprImageButtonHide(imageButtonHide);
+	Sprite sprImageButtonDelete(imageButtonDelete);
+	Sprite sprImageButtonSelectionPoint(imageButtonSelectionPoint);
+	Sprite sprImageButtonShow(imageButtonShow);
+	Sprite sprImagePointMenu(imagePointMenu);
+	Sprite sprImagenSaveMode(imagenSaveMode);
+	Sprite sprImagenButtonAutomaticSaveButton(imagenButtonAutomaticSaveButton);
+	Sprite sprImageManualSaveButton(imageManualSaveButton);
 
 	sprImageButtonExit.setPosition(30, 40);
 	sprImageFinishRoutebutton.setPosition(1220, 150);
-	sprImageRouteMenu.setPosition(30, 220);
-	sprImageButtonAdd.setPosition(30, 303);//163 Todas las imagenes que tengan que ver con ruta llevan 10 mp de distancia 
-	sprImageButtonSave.setPosition(30, 351);//211
-	sprImageButtonLoad.setPosition(30, 397);//257
-	
+	sprImageButtonDelete.setPosition(1220, 227);
+	sprImageButtonShow.setPosition(1220, 284);
+	sprImageButtonHide.setPosition(1220, 334);
+	sprImagenSaveMode.setPosition(1220, 434);
+	sprImagenButtonAutomaticSaveButton.setPosition(1220, 532);
+	sprImageManualSaveButton.setPosition(1220, 562);
+	sprImageRouteMenu.setPosition(30, 170);
+	sprImageButtonAdd.setPosition(30, 253);
+	sprImageButtonLoad.setPosition(30, 298);
+	sprImageButtonSelectionRoute.setPosition(30, 346);
+	sprImageButtonSave.setPosition(30, 394);
+	sprImagePointMenu.setPosition(30, 535);
+	sprImageButtonSelectionPoint.setPosition(30, 629);
 
 	sprImageWindowMap.setScale(static_cast<float>(windowMap.getSize().x) / sprImageWindowMap.getLocalBounds().width,
 		static_cast<float>(windowMap.getSize().y) / sprImageWindowMap.getLocalBounds().height);
 
 	while (windowMap.isOpen()) {
 		Event eventWindowMap;
+
+
 		while (windowMap.pollEvent(eventWindowMap)) {
+			if (enabledAutoSave) {
+				listManager->saveListRoute();
+			}
+
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				if (sprImageButtonExit.getGlobalBounds().contains(mousePosition)) {
@@ -82,11 +151,11 @@ void GraphicWindow::windowMap()
 					enabledAddPoint = true;
 				}
 			}
-			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)&& (enabledAddPoint)) {
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left) && (enabledAddPoint)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				int x = eventWindowMap.mouseButton.x;
 				int y = eventWindowMap.mouseButton.y;
-				if (((195 < x) && (x < 1200))&&((x != lastX)&&(y!=lastY))) {
+				if (((195 < x) && (x < 1200)) && ((x != lastX) && (y != lastY))) {
 					enterData(x, y);
 					lastX = x;
 					lastY = y;
@@ -102,28 +171,121 @@ void GraphicWindow::windowMap()
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				if ((sprImageButtonSave.getGlobalBounds().contains(mousePosition))) {
 					listManager->saveListRoute();
-					hasListSavedRoute=true;
+					//hasListSavedRoute = true;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if (((sprImageButtonLoad.getGlobalBounds().contains(mousePosition)))&& hasListSavedRoute) {
+				if (((sprImageButtonLoad.getGlobalBounds().contains(mousePosition)))/*&& hasListSavedRoute*/) {//detallazo
 					listManager->loadListRoute();
 				}
 			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (((sprImageButtonSelectionPoint.getGlobalBounds().contains(mousePosition)))) {
+					enabledSelectionPoint = true;
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (((sprImageButtonSelectionRoute.getGlobalBounds().contains(mousePosition)))) {
+					enabledSelectionRoute = true;
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)
+				&& ((enabledSelectionPoint) || (enabledSelectionRoute))) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				int x = eventWindowMap.mouseButton.x;
+				int y = eventWindowMap.mouseButton.y;
+				if ((195 < x) && (x < 1200)) {
+					if (enabledSelectionPoint) {
+						selectedPoint = listManager->searchPoint(x, y);
+					}
+					if ((enabledSelectionRoute) || (enabledHide) || (enabledShow)) {
+						selectedRoute = listManager->searchRoute(x, y);
+					}
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (((sprImageButtonDelete.getGlobalBounds().contains(mousePosition)))) {
+					if (enabledSelectionPoint) {
+						listManager->deletePoint(selectedPoint);
+						enabledSelectionPoint = false;
+					}
+					if (enabledSelectionRoute) {
+						listManager->deleteRoute(selectedRoute);
+						enabledSelectionRoute = false;
+					}
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (((sprImageButtonShow.getGlobalBounds().contains(mousePosition)))) {
+					if (selectedRoute) {
+						selectedRoute->setIsVisible(true);
+						enabledSelectionRoute = false;
+						selectedRoute = nullptr;
+					}
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (((sprImageButtonHide.getGlobalBounds().contains(mousePosition)))) {
+					if (selectedRoute) {
+						selectedRoute->setIsVisible(false);
+						enabledSelectionRoute = false;
+						selectedRoute = nullptr;
+					}
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (sprImagenButtonAutomaticSaveButton.getGlobalBounds().contains(mousePosition)) {
+					enabledAutoSave = true;
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (sprImageManualSaveButton.getGlobalBounds().contains(mousePosition)) {
+					enabledAutoSave = false;
+				}
+			}
+
 		}
 
 		windowMap.clear();
 		windowMap.draw(sprImageWindowMap);
-		windowMap.draw(sprImageButtonExit);
-		windowMap.draw(sprImageRouteMenu);
-		windowMap.draw(sprImageButtonAdd);
-		windowMap.draw(sprImageButtonSave);
-		windowMap.draw(sprImageButtonLoad);
-		drawRoute(windowMap);
+		if ((!enabledAddPoint) && (!enabledSelectionPoint) && (!enabledSelectionRoute)) {
+			windowMap.draw(sprImagenSaveMode);
+			windowMap.draw(sprImageButtonExit);
+			windowMap.draw(sprImageRouteMenu);
+			windowMap.draw(sprImageButtonAdd);
+			windowMap.draw(sprImageButtonLoad);
+			windowMap.draw(sprImageButtonSelectionRoute);
+			windowMap.draw(sprImagePointMenu);
+			windowMap.draw(sprImageButtonSelectionPoint);
+			if (!enabledAutoSave) {
+				windowMap.draw(sprImageButtonSave);
+				windowMap.draw(sprImagenButtonAutomaticSaveButton);
+			}
+			else {
+				windowMap.draw(sprImageManualSaveButton);
+			}
+		}
 		if (enabledAddPoint) {
 			windowMap.draw(sprImageFinishRoutebutton);
 		}
+
+		if (enabledSelectionRoute) {
+			windowMap.draw(sprImageButtonDelete);
+			windowMap.draw(sprImageButtonShow);
+			windowMap.draw(sprImageButtonHide);
+		}
+		if (enabledSelectionPoint) {
+			windowMap.draw(sprImageButtonDelete);
+		}
+		drawRoute(windowMap);
 		windowMap.display();
 	}
 }
@@ -150,35 +312,57 @@ void GraphicWindow::drawRoute(RenderWindow& window)
 		GeneralList<Route>* listRoute = listManager->getListRoute();
 		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
 		while (currentNodeRoute) {
-			Route* Route = currentNodeRoute->getData();
-			DoubleNode<Point>* currentNodePoint = Route->getPointsList()->getHead();
-
-			drawPoint(window, currentNodePoint,currentNodeRoute->getData()->getColor());
+			DoubleNode<Point>* currentNodePoint = currentNodeRoute->getData()->getPointsList()->getHead();
+			if (currentNodeRoute->getData()->getIsVisible() == false) {
+				drawHiddenRoute(window, currentNodeRoute);
+			}
+			else {
+				Color color = currentNodeRoute->getData()->getColor();
+				if (currentNodeRoute->getData() == selectedRoute) {
+					color = Color::Green;
+				}
+				drawPoint(window, currentNodePoint, color);
+			}
 			currentNodeRoute = currentNodeRoute->getNext();
 		}
 	}
 }
 
+void GraphicWindow::drawHiddenRoute(RenderWindow& window, DoubleNode<Route>* route)
+{
+	Color color = route->getData()->getColor();
+	if (route->getData() == selectedRoute) {
+		color = Color::Green;
+	}
+	Point* point = route->getData()->getPointsList()->getHead()->getData();
+	RectangleShape Rectangle(Vector2f(10.0f, 10.0f));
+	Rectangle.setFillColor(color);
+	Rectangle.setPosition(point->getPositionX()-4, point->getPositionY()-4);
+	window.draw(Rectangle);
+}
+
 void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint,Color color)
 {
 	if (currentNodePoint) {
+		Vertex line[2];
 		CircleShape circle;
 		circle.setRadius(5);
-		circle.setFillColor(color);
-		while (currentNodePoint->getNext()) {
-			Vertex line[] = {
-				Vertex(Vector2f(currentNodePoint->getData()->getPositionX(),
-					currentNodePoint->getData()->getPositionY()),color),
-				Vertex(Vector2f(currentNodePoint->getNext()->getData()->getPositionX(),
-					currentNodePoint->getNext()->getData()->getPositionY()),color)
-			};
+		while (currentNodePoint) {
+			circle.setFillColor(color);
+			if (selectedPoint == currentNodePoint->getData()) {
+				circle.setFillColor(Color::Green);
+			}
+			if(currentNodePoint->getNext()){
+				line[0] = Vertex(Vector2f(currentNodePoint->getData()->getPositionX(),
+					currentNodePoint->getData()->getPositionY()), color);
+				line[1]=Vertex(Vector2f(currentNodePoint->getNext()->getData()->getPositionX(),
+					currentNodePoint->getNext()->getData()->getPositionY()), color);
+			}
 			circle.setPosition(currentNodePoint->getData()->getPositionX()-4, currentNodePoint->getData()->getPositionY()-4);
 			window.draw(line, 2, Lines);
 			window.draw(circle);
 			currentNodePoint = currentNodePoint->getNext();
 		}
-		circle.setPosition(currentNodePoint->getData()->getPositionX() - 4, currentNodePoint->getData()->getPositionY() - 4);;
-		window.draw(circle);
 	}
 }
 
@@ -186,11 +370,13 @@ Color GraphicWindow::colorRoute()
 {
 	Color color;
 
-	RenderWindow windowColorPalette(VideoMode(700, 263), "ColorPalette", Style::None);
+	RenderWindow windowColorPalette(VideoMode(700, 243), "ColorPalette", Style::None);
 
 	Texture imageColorPalette;
 
-	imageColorPalette.loadFromFile("Images/colorPalette.png");
+	if (!imageColorPalette.loadFromFile("Images/colorPalette.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
 
 	Sprite sprImageColorPalette(imageColorPalette);
 
@@ -211,6 +397,11 @@ Color GraphicWindow::colorRoute()
 		windowColorPalette.display();
 	}
 	return color;
+}
+
+int GraphicWindow::getERROR_OPEN_IMAGE()
+{
+	return ERROR_OPEN_IMAGE;
 }
 
 

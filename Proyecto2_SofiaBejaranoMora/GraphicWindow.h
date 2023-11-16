@@ -13,10 +13,17 @@ using namespace std;
 class GraphicWindow
 {
 private:
-	bool hasListSavedRoute;
+	//bool hasListSavedRoute;
 	bool enabledAddPoint;
+	bool enabledSelectionRoute;
+	bool enabledSelectionPoint;
+	bool enabledShow;
+	bool enabledHide;
+	bool enabledAutoSave;
 	string nameRoute;
 	ListManager* listManager;
+	Point* selectedPoint;
+	Route* selectedRoute;
 	int lastX;
 	int lastY;
 	const int ERROR_OPEN_IMAGE = 1;
@@ -26,10 +33,9 @@ public:
 	void enterData(int x, int y);
 	void useConsole();
 	void drawRoute(RenderWindow& window);
+	void drawHiddenRoute(RenderWindow& window, DoubleNode<Route>* route);
 	void drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint, Color color);
 	Color colorRoute();
-	int getERROR_OPEN_IMAGE() {
-		return ERROR_OPEN_IMAGE;
-	}
+	int getERROR_OPEN_IMAGE();
 };
 

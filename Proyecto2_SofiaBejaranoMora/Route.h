@@ -13,18 +13,23 @@ class Route
 private:
 	string name;
 	GeneralList<Point>* pointList;
+	bool isVisible;
 	Color color;
 public:
 	Route();
 	Route(string name);
-	Route(string name,GeneralList<Point>* pointsList);
 	GeneralList<Point>* getPointsList();
 	string getName();
 	Color getColor();
+	Point* searchPoint(int x, int y);
+	bool getIsVisible();
+	bool checkedPoint(int x, int y);
+	bool deletePoint(Point* point);
 	void addPoint(int x, int y);
 	void setPointsList(GeneralList<Point>* pointsList);
 	void setColor(Color color);
 	void setName(string name);
+	void setIsVisible(bool isVisible);
 	void toString();
 };
 

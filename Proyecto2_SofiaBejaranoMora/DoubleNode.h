@@ -33,7 +33,9 @@ public:
 	void setNext(DoubleNode* next) {
 		this->next = next;
 	}
-
+	~DoubleNode() {
+		data;
+	}
 };
 
 

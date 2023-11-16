@@ -32,6 +32,53 @@ void ListManager::loadListRoute()
 	listRoute = fileManager->loadList();
 }
 
+void ListManager::deleteRoute(Route* route)
+{
+	DoubleNode<Route>* current = listRoute->getHead();
+	while (current) {
+		if (listRoute->deleteData(route)) {
+			break;
+		}
+		current = current->getNext();
+	}
+	
+}
+
+void ListManager::deletePoint(Point* point)
+{
+	DoubleNode<Route>* current = listRoute->getHead();
+	while (current) {
+		if (current->getData()->deletePoint(point)) {
+			break;
+		}
+		current = current->getNext();
+	}
+}
+
+Route* ListManager::searchRoute(int x, int y)
+{
+	DoubleNode<Route>* current = listRoute->getHead();
+	while (current) {
+		if (current->getData()->checkedPoint(x, y)) {
+			return current->getData();
+		}
+		current = current->getNext();
+	}
+	return nullptr;
+}
+
+Point* ListManager::searchPoint(int x, int y)
+{
+	DoubleNode<Route>* current = listRoute->getHead();
+	while (current) {
+		if (current->getData()->checkedPoint(x,y)) {
+			return current->getData()->searchPoint(x,y);
+		}
+		current = current->getNext();
+	}
+	return nullptr;
+}
+
 GeneralList<Route>* ListManager::getListRoute()
 {
 	return listRoute;

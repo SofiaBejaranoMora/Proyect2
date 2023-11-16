@@ -13,7 +13,7 @@ using namespace std;
 class FileManager
 {
 private:
-	const string NAME= "routeFile.mmp";
+	const string NAME = "routeFile.mmp";
 public:
 	FileManager();
 	void saveList(GeneralList<Route>* listManager);
@@ -23,7 +23,7 @@ public:
 	void deserailizeNameRoute(string line, Route* route);
 	void deserailizeColor(string line, Route* route);
 	void deserailizeListPoint(string line, Route* route);
-	void insertPoint(string line,GeneralList<Point>* listPoint);
+	void deserailizePoint(string line,GeneralList<Point>* listPoint);
 	GeneralList<Route>* loadList();
 };
 
