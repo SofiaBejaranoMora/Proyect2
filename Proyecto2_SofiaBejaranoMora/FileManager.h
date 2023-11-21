@@ -27,4 +27,4 @@ public:
 	void deserailizePoint(string line,GeneralList<Point>* listPoint);
 	GeneralList<Route>* loadList();
 };
-
+ 

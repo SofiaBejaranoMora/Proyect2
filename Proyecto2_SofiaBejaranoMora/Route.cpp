@@ -97,7 +97,4 @@ void Route::setIsVisible(bool isVisible)
 	this->isVisible = isVisible;
 }
 
-void Route::toString()
-{
-	cout << name << endl;
-}
+

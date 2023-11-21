@@ -13,7 +13,6 @@ GraphicWindow::GraphicWindow()
 	enabledAutoSave = false;
 	selectedPoint = new Point;
 	selectedRoute = new Route;
-	//hasListSavedRoute = false;
 	lastX = 0;
 	lastY = 0;
 }
@@ -286,7 +285,7 @@ void GraphicWindow::windowMap()
 				windowMap.draw(sprImageManualSaveButton);
 			}
 		}
-		if (enabledAddPoint) {
+		if ((enabledAddPoint) && (listManager->getListRoute()->getHead()->getData()->getPointsList()->getHead()!=nullptr)) {
 			windowMap.draw(sprImageFinishRoutebutton);
 		}
 
@@ -314,6 +313,7 @@ void GraphicWindow::useConsole()
 {
 	HWND hwnd = GetConsoleWindow();
 	ShowWindow(hwnd, SW_MINIMIZE);
+	system("cls");
 	cout << "Ingrese el nombre de la ruta que va a crear: ";
 	ShowWindow(hwnd, SW_RESTORE);
 	cin >> nameRoute;
@@ -386,7 +386,7 @@ void GraphicWindow::drawNameSelectedRoute(RenderWindow& window)
 	if (enabledSelectionRoute || enabledSelectionPoint) {
 		Color color(255, 253, 95);
 		Font source;
-		if (!source.loadFromFile("Another Story.ttf")) {
+		if (!source.loadFromFile("Overthink.ttf")) {
 			throw 3;
 		}
 		Text nameRoute("", source, 35);
@@ -400,7 +400,7 @@ void GraphicWindow::drawNameSelectedRoute(RenderWindow& window)
 			}
 		}
 		nameRoute.setFillColor(color);
-		nameRoute.setPosition(1190, 100);
+		nameRoute.setPosition(1190, 90);
 		window.draw(nameRoute);
 	}
 }

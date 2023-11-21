@@ -28,8 +28,3 @@ bool Point::checkTouch(int x, int y)
     }
     return false;
 }
-
-void Point::toString()
-{
-    cout << "punto X = " << positionX << " punto y = " << positionY << endl;
-}

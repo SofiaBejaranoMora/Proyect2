@@ -11,7 +11,7 @@ using namespace sf;
 class Route
 {
 private:
-	string name;
+	string name; 
 	GeneralList<Point>* pointList;
 	bool isVisible;
 	Color color;
@@ -30,6 +30,9 @@ public:
 	void setColor(Color color);
 	void setName(string name);
 	void setIsVisible(bool isVisible);
-	void toString();
 };
+ 
+ 
+ 
+ 
 

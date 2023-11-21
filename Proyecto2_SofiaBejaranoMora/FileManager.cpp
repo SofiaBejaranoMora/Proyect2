@@ -93,7 +93,6 @@ GeneralList<Route>* FileManager::loadList()
 		deserailizeColor(line, route);
 		deserailizeListPoint(line, route);
 	}
-
 	file.close();
 
 	return listRoute;

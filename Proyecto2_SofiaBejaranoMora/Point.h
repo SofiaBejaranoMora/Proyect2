@@ -7,7 +7,7 @@ using namespace std;
 class Point
 {
 private:
-	int positionX;
+	int positionX; 
 	int positionY;
 public:
 	Point();
@@ -15,6 +15,5 @@ public:
 	int getPositionX();
 	int getPositionY();
 	bool checkTouch(int x,int y);
-	void toString();
 };
-
+ 

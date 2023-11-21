@@ -9,7 +9,7 @@ template <typename T>
 class GeneralList
 {
 private:
-	DoubleNode<T>* head;
+	DoubleNode<T>* head; 
 	DoubleNode<T>* last;
 public:
 	GeneralList() {
@@ -104,3 +104,4 @@ public:
 		}
 	}
 };
+ 
