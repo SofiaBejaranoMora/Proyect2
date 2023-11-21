@@ -411,7 +411,7 @@ void GraphicWindow::drawNameSelectedRoute(RenderWindow& window)
 			}
 		}
 		nameRoute.setFillColor(color);
-		nameRoute.setPosition(1180, 70);
+		nameRoute.setPosition(30, 650);
 		window.draw(nameRoute);
 	}
 }
