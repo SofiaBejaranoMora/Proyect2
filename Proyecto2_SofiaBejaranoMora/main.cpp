@@ -21,6 +21,9 @@ int main()
 		else if (exceptionId == 2) {
 			cout << "there is an error when opening the file"<<endl;
 		}
+		else if (exceptionId == 3) {
+			cout << "there is an error loading the font" << endl;
+		}
 		else {
 			cout << "Unknown error" << endl;
 		}
