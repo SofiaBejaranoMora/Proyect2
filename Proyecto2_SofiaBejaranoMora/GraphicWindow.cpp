@@ -22,7 +22,7 @@ void GraphicWindow::windowMap()
 {
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
 	
-	string name = "automaticSaveButton";
+	bool enabledReset= false;
 
 	Texture imageWindowMap;
 	Texture imageButtonExit;
@@ -40,6 +40,7 @@ void GraphicWindow::windowMap()
 	Texture imagenSaveMode;
 	Texture imagenButtonAutomaticSaveButton;
 	Texture imageManualSaveButton;
+	Texture imageResetButton;
 
 	if (!imageWindowMap.loadFromFile("Images/Map.png")) {
 		throw ERROR_OPEN_IMAGE;
@@ -89,6 +90,9 @@ void GraphicWindow::windowMap()
 	if (!imageManualSaveButton.loadFromFile("Images/manualSaveButton.png")) {
 		throw ERROR_OPEN_IMAGE;
 	}
+	if (!imageResetButton.loadFromFile("Images/resetButton.png")) {
+		throw ERROR_OPEN_IMAGE;
+	}
 
 	Sprite sprImageWindowMap(imageWindowMap);
 	Sprite sprImageButtonExit(imageButtonExit);
@@ -106,8 +110,10 @@ void GraphicWindow::windowMap()
 	Sprite sprImagenSaveMode(imagenSaveMode);
 	Sprite sprImagenButtonAutomaticSaveButton(imagenButtonAutomaticSaveButton);
 	Sprite sprImageManualSaveButton(imageManualSaveButton);
+	Sprite sprImageResetButton(imageResetButton);
 
 	sprImageButtonExit.setPosition(30, 40);
+	sprImageResetButton.setPosition(1220,40);
 	sprImageFinishRoutebutton.setPosition(1220, 150);
 	sprImageButtonDelete.setPosition(1220, 227);
 	sprImageButtonShow.setPosition(1220, 284);
@@ -131,10 +137,10 @@ void GraphicWindow::windowMap()
 
 
 		while (windowMap.pollEvent(eventWindowMap)) {
-			if (enabledAutoSave) {
+			if ((enabledAutoSave)&&(!enabledReset)) {
 				listManager->saveListRoute();
 			}
-
+			enabledReset = false;
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				if (sprImageButtonExit.getGlobalBounds().contains(mousePosition)) {
@@ -171,12 +177,11 @@ void GraphicWindow::windowMap()
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				if ((sprImageButtonSave.getGlobalBounds().contains(mousePosition))) {
 					listManager->saveListRoute();
-					//hasListSavedRoute = true;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if (((sprImageButtonLoad.getGlobalBounds().contains(mousePosition)))/*&& hasListSavedRoute*/) {//detallazo
+				if ((sprImageButtonLoad.getGlobalBounds().contains(mousePosition))) {
 					listManager->loadListRoute();
 				}
 			}
@@ -224,9 +229,9 @@ void GraphicWindow::windowMap()
 				if (((sprImageButtonShow.getGlobalBounds().contains(mousePosition)))) {
 					if (selectedRoute) {
 						selectedRoute->setIsVisible(true);
-						enabledSelectionRoute = false;
-						selectedRoute = nullptr;
+						selectedRoute = new Route;
 					}
+					enabledSelectionRoute = false;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
@@ -234,9 +239,9 @@ void GraphicWindow::windowMap()
 				if (((sprImageButtonHide.getGlobalBounds().contains(mousePosition)))) {
 					if (selectedRoute) {
 						selectedRoute->setIsVisible(false);
-						enabledSelectionRoute = false;
-						selectedRoute = nullptr;
+						selectedRoute = new Route;
 					}
+					enabledSelectionRoute = false;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
@@ -249,6 +254,13 @@ void GraphicWindow::windowMap()
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
 				if (sprImageManualSaveButton.getGlobalBounds().contains(mousePosition)) {
 					enabledAutoSave = false;
+				}
+			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
+				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
+				if (sprImageResetButton.getGlobalBounds().contains(mousePosition)) {
+					enabledReset= true;
+					listManager->deletelistRoute();
 				}
 			}
 
@@ -265,6 +277,7 @@ void GraphicWindow::windowMap()
 			windowMap.draw(sprImageButtonSelectionRoute);
 			windowMap.draw(sprImagePointMenu);
 			windowMap.draw(sprImageButtonSelectionPoint);
+			windowMap.draw(sprImageResetButton);
 			if (!enabledAutoSave) {
 				windowMap.draw(sprImageButtonSave);
 				windowMap.draw(sprImagenButtonAutomaticSaveButton);
@@ -281,9 +294,11 @@ void GraphicWindow::windowMap()
 			windowMap.draw(sprImageButtonDelete);
 			windowMap.draw(sprImageButtonShow);
 			windowMap.draw(sprImageButtonHide);
+			drawNameSelectedRoute(windowMap);
 		}
 		if (enabledSelectionPoint) {
 			windowMap.draw(sprImageButtonDelete);
+			drawNameSelectedRoute(windowMap);
 		}
 		drawRoute(windowMap);
 		windowMap.display();
@@ -363,6 +378,30 @@ void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNo
 			window.draw(circle);
 			currentNodePoint = currentNodePoint->getNext();
 		}
+	}
+}
+
+void GraphicWindow::drawNameSelectedRoute(RenderWindow& window)
+{
+	if (enabledSelectionRoute || enabledSelectionPoint) {
+		Color color(255, 253, 95);
+		Font source;
+		if (!source.loadFromFile("Another Story.ttf")) {
+			throw 3;
+		}
+		Text nameRoute("", source, 35);
+		if (selectedRoute!=nullptr) {
+			nameRoute.setString("name Route:\n" + selectedRoute->getName());
+		}
+		if (selectedPoint != nullptr) {
+			Route* route = listManager->searchRoute(selectedPoint->getPositionX(), selectedPoint->getPositionY());
+			if (route) {
+				nameRoute.setString("name Route:\n" + route->getName());
+			}
+		}
+		nameRoute.setFillColor(color);
+		nameRoute.setPosition(1190, 100);
+		window.draw(nameRoute);
 	}
 }
 

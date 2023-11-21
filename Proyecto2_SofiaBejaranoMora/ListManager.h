@@ -11,6 +11,7 @@ private:
 	FileManager* fileManager;
 public:
 	ListManager();
+	void deletelistRoute();
 	void setCurrentRoute(Route* currentRoute);
 	void addRoute();
 	void insertPoint(int x, int y);

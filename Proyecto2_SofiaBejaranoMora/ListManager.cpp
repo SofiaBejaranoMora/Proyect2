@@ -7,6 +7,18 @@ ListManager::ListManager()
 	fileManager = new FileManager;
 }
 
+void ListManager::deletelistRoute()
+{
+	if (listRoute->getHead()) {
+		DoubleNode<Route>* current = listRoute->getLast();
+		while (current->getPrevious()) {
+			current = current->getPrevious();
+			listRoute->deleteEnd();
+		}
+		listRoute->deleteEnd();
+	}
+}
+
 void ListManager::setCurrentRoute(Route* currentRoute)
 {
 	this->currentRoute = currentRoute;

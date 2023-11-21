@@ -13,7 +13,6 @@ using namespace std;
 class GraphicWindow
 {
 private:
-	//bool hasListSavedRoute;
 	bool enabledAddPoint;
 	bool enabledSelectionRoute;
 	bool enabledSelectionPoint;
@@ -35,6 +34,7 @@ public:
 	void drawRoute(RenderWindow& window);
 	void drawHiddenRoute(RenderWindow& window, DoubleNode<Route>* route);
 	void drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint, Color color);
+	void drawNameSelectedRoute(RenderWindow& window);
 	Color colorRoute();
 	int getERROR_OPEN_IMAGE();
 };

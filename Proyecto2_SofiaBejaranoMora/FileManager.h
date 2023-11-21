@@ -18,6 +18,7 @@ public:
 	FileManager();
 	void saveList(GeneralList<Route>* listManager);
 	string serializeRoute(Route* route);
+	string serializeNameStatus(Route* route);
 	string serializeColor(Color color);
 	string serializeListPoint(GeneralList<Point>* listPoint);
 	void deserailizeNameRoute(string line, Route* route);

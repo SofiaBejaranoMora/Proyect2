@@ -10,6 +10,7 @@ class GeneralList
 {
 private:
 	DoubleNode<T>* head;
+	DoubleNode<T>* last;
 public:
 	GeneralList() {
 		head = nullptr;
@@ -20,6 +21,12 @@ public:
 	DoubleNode<T>* getHead() {
 		return head;
 	}
+	DoubleNode<T>* getLast() {
+		return last;
+	}
+	void setLast(DoubleNode<T>* last) {
+		this->last = last;
+	}
 	void setHead(DoubleNode<T>* head) {
 		this->head = head;
 	}
@@ -27,16 +34,21 @@ public:
 
 		if (!head) {
 			head = new DoubleNode<T>(data);
+			last = head;
 		}
 		else {
-			DoubleNode<T>* currentNode = head;
+			/*DoubleNode<T>* currentNode = head;
 			while (currentNode->getNext())
 			{
 				currentNode = currentNode->getNext();
 			}
 
 			currentNode->setNext(new DoubleNode<T>(data));
-			currentNode->getNext()->setPrevious(currentNode);
+			currentNode->getNext()->setPrevious(currentNode);*/
+			DoubleNode<T>* newNode = new DoubleNode<T>(data);
+			newNode->setPrevious(last);
+			last->setNext(newNode);
+			last = newNode;
 
 		}
 	}
@@ -65,7 +77,7 @@ public:
 					currentNode = currentNode->getNext();
 				}
 			}
-			else if(head->getData()==data){
+			else if (head->getData() == data) {
 				delete head;
 				head = nullptr;
 				return true;
@@ -73,12 +85,22 @@ public:
 		}
 		return false;
 	}
-	void imprimir() {
-		DoubleNode<T>* currentNode = head;
-		while (currentNode) {
-			currentNode->getData()->toString();
-			currentNode = currentNode->getNext();
+	void deleteEnd() {
+		if (head) {
+			DoubleNode<T>* currentNode = head;
+			while (currentNode->getNext()) {
+				currentNode = currentNode->getNext();
+			}
+			if (currentNode == head) {
+				head = nullptr;
+				delete head;
+				
+			}
+			else {
+				currentNode->getPrevious()->setNext(nullptr);
+				currentNode->setPrevious(nullptr);
+				delete currentNode;
+			}
 		}
-		cout << endl;
 	}
 };

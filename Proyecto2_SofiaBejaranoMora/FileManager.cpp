@@ -26,10 +26,23 @@ void FileManager::saveList(GeneralList<Route>* listRoute)
 string FileManager::serializeRoute(Route* route)
 {
 	string data = " ";
-	data = "Name: " + route->getName();
+	data = serializeNameStatus(route);
 	data +="\nColor: "+ serializeColor(route->getColor());
 	data += "\nPoint: " + serializeListPoint(route->getPointsList())+ "end;";
 	return data;
+}
+
+string FileManager::serializeNameStatus(Route* route)
+{
+	string text = "";
+	text = "Name: " + route->getName()+";";
+	if (route->getIsVisible()) {
+		text += "V;";
+	}
+	if (!route->getIsVisible()) {
+		text += "NV;";
+	}
+	return text;
 }
 
 string FileManager::serializeColor(Color color)
@@ -91,7 +104,18 @@ void FileManager::deserailizeNameRoute(string line,Route* route)
 	if (line.find("Name: ") != string::npos) {
 		int pos = line.find(":");
 		line = line.substr(pos + 1, line.size() - pos - 1);
-		route->setName(line);
+		pos = line.find(";");
+		route->setName(line.substr(0,pos));
+		line = line.substr(pos + 1, line.size() - pos - 1);
+		pos = line.find(";");
+		line = line.substr(0,pos);
+		if (line == "V") {
+			route->setIsVisible(true);
+		}
+		if (line == "NV") {
+			route->setIsVisible(false);
+		}
+		
 	}
 }
 
