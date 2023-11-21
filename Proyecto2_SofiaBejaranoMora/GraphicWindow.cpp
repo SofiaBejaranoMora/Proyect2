@@ -262,6 +262,17 @@ void GraphicWindow::windowMap()
 					listManager->deletelistRoute();
 				}
 			}
+			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Right)) {
+				if (enabledSelectionRoute) {
+					enabledSelectionRoute = false;
+					selectedRoute = new Route;
+				}
+				if (enabledSelectionPoint) {
+					enabledSelectionPoint = false;
+					selectedPoint = new Point;
+				}
+				
+			}
 
 		}
 
@@ -400,7 +411,7 @@ void GraphicWindow::drawNameSelectedRoute(RenderWindow& window)
 			}
 		}
 		nameRoute.setFillColor(color);
-		nameRoute.setPosition(1190, 90);
+		nameRoute.setPosition(1180, 70);
 		window.draw(nameRoute);
 	}
 }

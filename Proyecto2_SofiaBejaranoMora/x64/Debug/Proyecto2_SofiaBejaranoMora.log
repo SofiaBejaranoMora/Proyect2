@@ -1,26 +1,26 @@
 ﻿  GraphicWindow.cpp
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(355,70): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(355,45): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(372,47): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(366,70): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(366,45): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(383,47): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(371,72): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(382,72): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(374,58): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(385,58): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(373,81): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(384,81): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(376,113): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(376,66): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(387,113): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\GraphicWindow.cpp(387,66): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
   Proyecto2_SofiaBejaranoMora.vcxproj -> C:\Users\Sofia Bejarano Mora\Documents\GitHub\Proyect2\Proyecto2_SofiaBejaranoMora\x64\Debug\Proyecto2_SofiaBejaranoMora.exe
