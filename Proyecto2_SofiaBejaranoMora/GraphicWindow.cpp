@@ -174,7 +174,7 @@ void GraphicWindow::windowMap()
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if ((sprImageButtonSave.getGlobalBounds().contains(mousePosition))&&!enabledAddPoint) {
+				if ((sprImageButtonSave.getGlobalBounds().contains(mousePosition)) && (!enabledAddPoint)) {
 					listManager->saveListRoute();
 				}
 			}
@@ -186,13 +186,13 @@ void GraphicWindow::windowMap()
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if (((sprImageButtonSelectionPoint.getGlobalBounds().contains(mousePosition))&& !enabledAddPoint)) {
+				if (((sprImageButtonSelectionPoint.getGlobalBounds().contains(mousePosition)) && (!enabledAddPoint))) {
 					enabledSelectionPoint = true;
 				}
 			}
 			if ((eventWindowMap.type == Event::MouseButtonPressed) && (eventWindowMap.mouseButton.button == Mouse::Left)) {
 				Vector2f mousePosition = windowMap.mapPixelToCoords(Mouse::getPosition(windowMap));
-				if (((sprImageButtonSelectionRoute.getGlobalBounds().contains(mousePosition))&& !enabledAddPoint)) {
+				if (((sprImageButtonSelectionRoute.getGlobalBounds().contains(mousePosition)) && (!enabledAddPoint))) {
 					enabledSelectionRoute = true;
 				}
 			}
