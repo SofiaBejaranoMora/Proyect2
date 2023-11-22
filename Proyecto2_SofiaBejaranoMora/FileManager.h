@@ -21,7 +21,7 @@ public:
 	string serializeNameStatus(Route* route);
 	string serializeColor(Color color);
 	string serializeListPoint(GeneralList<Point>* listPoint);
-	void deserailizeNameRoute(string line, Route* route);
+	void deserailizeNameRoute(string line, Route* route); //NOTE: la palabra correcta es deserialize
 	void deserailizeColor(string line, Route* route);
 	void deserailizeListPoint(string line, Route* route);
 	void deserailizePoint(string line,GeneralList<Point>* listPoint);

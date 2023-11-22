@@ -14,7 +14,7 @@ public:
 	void deletelistRoute();
 	void setCurrentRoute(Route* currentRoute);
 	void addRoute();
-	void insertPoint(int x, int y);
+	void insertPoint(int x, int y); 
 	void saveListRoute();
 	void loadListRoute();
 	void deleteRoute(Route* route);

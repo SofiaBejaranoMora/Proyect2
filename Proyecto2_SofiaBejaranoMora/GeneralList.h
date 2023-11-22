@@ -36,7 +36,7 @@ public:
 			head = new DoubleNode<T>(data);
 			last = head;
 		}
-		else {
+		else {//NOTE:Elimine el codigo muerto
 			/*DoubleNode<T>* currentNode = head;
 			while (currentNode->getNext())
 			{
@@ -53,7 +53,7 @@ public:
 		}
 	}
 	bool deleteData(T* data) {
-		if (head) {
+		if (head) {//NOTE: Codigo demasiado anidado
 			if (head->getNext()) {
 				DoubleNode<T>* currentNode = head;
 				while (currentNode) {

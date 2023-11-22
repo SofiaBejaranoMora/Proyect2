@@ -58,11 +58,12 @@ string FileManager::serializeColor(Color color)
 	aux = static_cast<int>(color.a);
 	data += to_string(aux) + ";";
 	return data;
+	 //NOTE:puede mejorar su codigo con variables mas representativas
 }
 
 string FileManager::serializeListPoint(GeneralList<Point>* listPoint)
 {
-	int aux = 0;
+	int aux = 0;//NOTE:Evite usar aux
 	string data = "";
 	DoubleNode<Point>* currentNode = listPoint->getHead();
 	while (currentNode) {
@@ -83,7 +84,7 @@ GeneralList<Route>* FileManager::loadList()
 	file.open(NAME);
 	string line;
 	while (getline(file, line)) {
-		if (line == "{") {
+		if (line == "{") { //NOTE: Muy interesante su formato de archivo
 			route = new Route();
 		}
 		else if (line == "}") {

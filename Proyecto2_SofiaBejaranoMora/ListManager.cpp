@@ -9,7 +9,7 @@ ListManager::ListManager()
 
 void ListManager::deletelistRoute()
 {
-	if (listRoute->getHead()) {
+	if (listRoute->getHead()) {//NOTE:puede mejorar su codigo invirtiendo el if, y usando un early return
 		DoubleNode<Route>* current = listRoute->getLast();
 		while (current->getPrevious()) {
 			current = current->getPrevious();

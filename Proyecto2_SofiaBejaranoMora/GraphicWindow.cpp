@@ -16,7 +16,7 @@ GraphicWindow::GraphicWindow()
 	lastX = 0;
 	lastY = 0;
 }
-
+//NOTE: Debe dividir esta función en partes pequeñas, tiene casi 300 lineas de codigo
 void GraphicWindow::windowMap()
 {
 	RenderWindow windowMap(VideoMode(1366, 778), "Map", Style::None);
@@ -334,7 +334,7 @@ void GraphicWindow::useConsole()
 
 void GraphicWindow::drawRoute(RenderWindow& window)
 {
-	if (listManager->getListRoute()->getHead()) {
+	if (listManager->getListRoute()->getHead()) {//NOTE:puede mejorar su codigo invirtiendo el if, y usando un early return
 		GeneralList<Route>* listRoute = listManager->getListRoute();
 		DoubleNode<Route>* currentNodeRoute = listRoute->getHead();
 		while (currentNodeRoute) {
@@ -369,7 +369,7 @@ void GraphicWindow::drawHiddenRoute(RenderWindow& window, DoubleNode<Route>* rou
 
 void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNodePoint,Color color)
 {
-	if (currentNodePoint) {
+	if (currentNodePoint) {//NOTE:puede mejorar su codigo invirtiendo el if, y usando un early return
 		Vertex line[2];
 		CircleShape circle;
 		circle.setRadius(5);
@@ -394,7 +394,7 @@ void GraphicWindow::drawPoint(RenderWindow& window, DoubleNode<Point>* currentNo
 
 void GraphicWindow::drawNameSelectedRoute(RenderWindow& window)
 {
-	if (enabledSelectionRoute || enabledSelectionPoint) {
+	if (enabledSelectionRoute || enabledSelectionPoint) {//NOTE:puede mejorar su codigo invirtiendo el if, y usando un early return
 		Color color(255, 253, 95);
 		Font source;
 		if (!source.loadFromFile("Overthink.ttf")) {
@@ -425,7 +425,7 @@ Color GraphicWindow::colorRoute()
 	Texture imageColorPalette;
 
 	if (!imageColorPalette.loadFromFile("Images/colorPalette.png")) {
-		throw ERROR_OPEN_IMAGE;
+		throw ERROR_OPEN_IMAGE; //NOTE: Muy bien, si se pudo!
 	}
 
 	Sprite sprImageColorPalette(imageColorPalette);
